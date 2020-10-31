@@ -215,6 +215,10 @@
     <Compile Include="Migrations\202010311633522_MarcaEPatrimonio.Designer.cs">
       <DependentUpon>202010311633522_MarcaEPatrimonio.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010311659423_AddAssociationToMarcaInPatrimonio.cs" />
+    <Compile Include="Migrations\202010311659423_AddAssociationToMarcaInPatrimonio.Designer.cs">
+      <DependentUpon>202010311659423_AddAssociationToMarcaInPatrimonio.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -318,6 +322,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202010311633522_MarcaEPatrimonio.resx">
       <DependentUpon>202010311633522_MarcaEPatrimonio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010311659423_AddAssociationToMarcaInPatrimonio.resx">
+      <DependentUpon>202010311659423_AddAssociationToMarcaInPatrimonio.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
