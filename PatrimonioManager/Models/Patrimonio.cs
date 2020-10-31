@@ -22,6 +22,5 @@ namespace PatrimonioManager.Models
         [Required]
         [Index(IsUnique = true)]
         public int NumeroDoTombo { get; set; }
-
     }
 }
