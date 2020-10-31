@@ -55,7 +55,6 @@ namespace PatrimonioManager.Controllers
             var patrimonio = Mapper.Map<PatrimonioDto, Patrimonio>(patrimonioDto);
 
             _context.Patrimonios.Add(patrimonio);
-
             _context.SaveChanges();
 
             patrimonioDto.Id = patrimonio.Id;
@@ -90,7 +89,6 @@ namespace PatrimonioManager.Controllers
                 return NotFound();
 
             _context.Patrimonios.Remove(patrimonioInDb);
-
             _context.SaveChanges();
 
             return Ok();
