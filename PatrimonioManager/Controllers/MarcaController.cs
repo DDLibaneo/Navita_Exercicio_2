@@ -12,7 +12,7 @@ namespace PatrimonioManager.Controllers
 {
     public class MarcaController : ApiController
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public MarcaController()
         {
@@ -79,7 +79,7 @@ namespace PatrimonioManager.Controllers
 
             _context.SaveChanges();
 
-            return Ok(marcaDto);
+            return Ok();
         }
 
         // DELETE /api/marcas/1
