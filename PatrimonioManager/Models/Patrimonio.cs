@@ -22,5 +22,10 @@ namespace PatrimonioManager.Models
         [Required]
         [Index(IsUnique = true)]
         public int NumeroDoTombo { get; set; }
+
+        public Marca Marca { get; set; }
+
+        [Required]
+        public int MarcaId { get; set; }
     }
 }
