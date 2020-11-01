@@ -19,7 +19,7 @@ namespace PatrimonioManager.Controllers
             _context = new ApplicationDbContext();
         }
 
-        // GET /api/marcas
+        // GET /api/marca or /api/Marca?query={query}
         public IHttpActionResult GetMarcas(string query = null)
         {
             var marcasQuery = (IEnumerable<Marca>)_context.Marcas;
@@ -33,7 +33,7 @@ namespace PatrimonioManager.Controllers
             return Ok(marcasDtos);
         }
 
-        // GET /api/marcas/1
+        // GET /api/marcas/{id}
         public IHttpActionResult GetMarca(int id)
         {
             var marca = _context.Marcas.SingleOrDefault(m => m.Id == id);
@@ -46,7 +46,7 @@ namespace PatrimonioManager.Controllers
             return Ok(marcaDto);
         }
 
-        // POST /api/marcas
+        // POST /api/marca
         [HttpPost]
         public IHttpActionResult CreateMarca(MarcaDto marcaDto)
         {
@@ -63,7 +63,7 @@ namespace PatrimonioManager.Controllers
             return Ok(marcaDto);
         }
 
-        // PUT /api/marcas/1
+        // PUT /api/marca/{id}
         [HttpPut]
         public IHttpActionResult UpdateMarca(int id, MarcaDto marcaDto)
         {
@@ -82,7 +82,7 @@ namespace PatrimonioManager.Controllers
             return Ok();
         }
 
-        // DELETE /api/marcas/1
+        // DELETE /api/marca/{id}
         [HttpDelete]
         public IHttpActionResult DeleteMarca(int id)
         {

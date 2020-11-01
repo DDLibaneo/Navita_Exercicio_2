@@ -21,6 +21,7 @@ namespace PatrimonioManager.Controllers
             _context = new ApplicationDbContext();
         }
 
+        // GET api/Patrimonio or api/Patrimonio?query={ query }
         public IHttpActionResult GetPatrimonios(string query = null)
         {
             var patrimoniosQuery = _context.Patrimonios.Include(p => p.Marca);
@@ -34,6 +35,7 @@ namespace PatrimonioManager.Controllers
             return Ok(patrimoniosDtos);
         }
 
+        // GET api/Patrimonio/{id}
         public IHttpActionResult GetPatrimonio(int id)
         {
             var patrimonio = _context.Patrimonios.SingleOrDefault(p => p.Id == id);
@@ -47,6 +49,7 @@ namespace PatrimonioManager.Controllers
         }
 
         [HttpPost]
+        // POST api/Patrimonio
         public IHttpActionResult CreatePatrimonio(PatrimonioDto patrimonioDto)
         {
             if (!ModelState.IsValid)
@@ -63,6 +66,7 @@ namespace PatrimonioManager.Controllers
         }
 
         [HttpPut]
+        // PUT api/Patrimonio/{id}
         public IHttpActionResult UpdatePatrimonio(int id, PatrimonioDto patrimonioDto)
         {
             if (!ModelState.IsValid)
@@ -81,6 +85,7 @@ namespace PatrimonioManager.Controllers
         }
 
         [HttpDelete]
+        // DELETE api/Patrimonio/{id}
         public IHttpActionResult DeletePatrimonio(int id)
         {
             var patrimonioInDb = _context.Patrimonios.SingleOrDefault(p => p.Id == id);
