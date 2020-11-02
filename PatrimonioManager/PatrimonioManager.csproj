@@ -234,6 +234,10 @@
     <Compile Include="Migrations\202011020303344_RemoveProperty_NumeroDoTombo_FromPatrimonio.Designer.cs">
       <DependentUpon>202011020303344_RemoveProperty_NumeroDoTombo_FromPatrimonio.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011022146242_RemovePluralizing.cs" />
+    <Compile Include="Migrations\202011022146242_RemovePluralizing.Designer.cs">
+      <DependentUpon>202011022146242_RemovePluralizing.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AccountBindingModels.cs" />
     <Compile Include="Models\Account\AccountViewModels.cs" />
@@ -344,6 +348,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011020303344_RemoveProperty_NumeroDoTombo_FromPatrimonio.resx">
       <DependentUpon>202011020303344_RemoveProperty_NumeroDoTombo_FromPatrimonio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011022146242_RemovePluralizing.resx">
+      <DependentUpon>202011022146242_RemovePluralizing.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
