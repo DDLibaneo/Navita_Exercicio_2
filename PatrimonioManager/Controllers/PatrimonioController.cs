@@ -26,7 +26,7 @@ namespace PatrimonioManager.Controllers
         {
             var patrimoniosQuery = _context.Patrimonios.Include(p => p.Marca);
 
-            if (string.IsNullOrEmpty(query))
+            if (!string.IsNullOrEmpty(query))
                 patrimoniosQuery = patrimoniosQuery.Where(p => p.Nome.Contains(query));
 
             var patrimoniosDtos = patrimoniosQuery.ToList()
