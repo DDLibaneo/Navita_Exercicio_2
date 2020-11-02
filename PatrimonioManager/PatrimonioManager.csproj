@@ -221,6 +221,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ResultMessageHelper.cs" />
     <Compile Include="Migrations\202010311633522_MarcaEPatrimonio.cs" />
     <Compile Include="Migrations\202010311633522_MarcaEPatrimonio.Designer.cs">
       <DependentUpon>202010311633522_MarcaEPatrimonio.cs</DependentUpon>

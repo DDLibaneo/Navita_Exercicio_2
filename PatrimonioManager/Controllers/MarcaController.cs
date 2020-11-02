@@ -7,6 +7,7 @@ using System.Data.Entity;
 using PatrimonioManager.Models;
 using AutoMapper;
 using PatrimonioManager.Dtos;
+using PatrimonioManager.Helpers;
 
 namespace PatrimonioManager.Controllers
 {
@@ -19,6 +20,7 @@ namespace PatrimonioManager.Controllers
             _context = new ApplicationDbContext();
         }
 
+        [Authorize]
         // GET /api/marca or /api/Marca?query={query}
         public IHttpActionResult GetMarcas(string query = null)
         {
@@ -33,7 +35,8 @@ namespace PatrimonioManager.Controllers
             return Ok(marcasDtos);
         }
 
-        // GET /api/marcas/{id}
+        [Authorize]
+        // GET /api/marcas/{id}        
         public IHttpActionResult GetMarca(int id)
         {
             var marca = _context.Marcas.SingleOrDefault(m => m.Id == id);
@@ -46,8 +49,9 @@ namespace PatrimonioManager.Controllers
             return Ok(marcaDto);
         }
 
-        // POST /api/marca
         [HttpPost]
+        [Authorize]
+        // POST /api/marca
         public IHttpActionResult CreateMarca(MarcaDtoIn marcaDtoIn)
         {
             if (!ModelState.IsValid)
@@ -57,7 +61,7 @@ namespace PatrimonioManager.Controllers
                 .Where(m => m.Nome.ToUpper() == marcaDtoIn.Nome.ToUpper());
 
             if (queryMarcasInDb.Count() > 0)
-                return BadRequest($"Marca {marcaDtoIn.Nome} já existe no banco de dados.");
+                return BadRequest(ResultMessageHelper.MarcaWithNameExistsMessage(marcaDtoIn.Nome));
 
             var marca = Mapper.Map<MarcaDtoIn, Marca>(marcaDtoIn);
 
@@ -69,8 +73,9 @@ namespace PatrimonioManager.Controllers
             return Ok(marcaDtoOut);
         }
 
-        // PUT /api/marca/{id}
         [HttpPut]
+        [Authorize]
+        // PUT /api/marca/{id}
         public IHttpActionResult UpdateMarca(int id, MarcaDtoIn marcaDtoIn)
         {
             if (!ModelState.IsValid)
@@ -90,8 +95,9 @@ namespace PatrimonioManager.Controllers
             return Ok(marcaDtoOut);
         }
 
-        // DELETE /api/marca/{id}
         [HttpDelete]
+        [Authorize]
+        // DELETE /api/marca/{id}
         public IHttpActionResult DeleteMarca(int id)
         {
             var marcaInDb = _context.Marcas.SingleOrDefault(m => m.Id == id);

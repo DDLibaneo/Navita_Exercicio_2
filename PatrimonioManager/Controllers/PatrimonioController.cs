@@ -9,9 +9,10 @@ using System.Web.Http;
 using System.Web;
 using AutoMapper;
 using System.Web.Http.Results;
+using PatrimonioManager.Helpers;
 
 namespace PatrimonioManager.Controllers
-{
+{    
     public class PatrimonioController : ApiController
     {
         private readonly ApplicationDbContext _context;
@@ -21,7 +22,8 @@ namespace PatrimonioManager.Controllers
             _context = new ApplicationDbContext();
         }
 
-        // GET api/Patrimonio or api/Patrimonio?query={ query }
+        [Authorize]
+        // GET api/Patrimonio or api/Patrimonio?query={ query }        
         public IHttpActionResult GetPatrimonios(string query = null)
         {
             var patrimoniosQuery = _context.Patrimonios.Include(p => p.Marca);
@@ -35,7 +37,8 @@ namespace PatrimonioManager.Controllers
             return Ok(patrimoniosDtos);
         }
 
-        // GET api/Patrimonio/{id}
+        [Authorize]
+        // GET api/Patrimonio/{id}        
         public IHttpActionResult GetPatrimonio(int id)
         {
             var patrimonio = _context.Patrimonios.SingleOrDefault(p => p.Id == id);
@@ -49,11 +52,15 @@ namespace PatrimonioManager.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         // POST api/Patrimonio
         public IHttpActionResult CreatePatrimonio(PatrimonioDtoIn patrimonioDtoIn)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
+
+            if (!IsMarcaInDatabase(patrimonioDtoIn.MarcaId))
+                return BadRequest(ResultMessageHelper.MarcaNotFoundMessage(patrimonioDtoIn.MarcaId));
 
             var patrimonio = Mapper.Map<PatrimonioDtoIn, Patrimonio>(patrimonioDtoIn);
 
@@ -66,15 +73,17 @@ namespace PatrimonioManager.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         // PUT api/Patrimonio/{id}
         public IHttpActionResult UpdatePatrimonio(int id, PatrimonioDtoIn patrimonioDtoIn)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var patrimonioInDb = _context.Patrimonios.SingleOrDefault(p => p.Id == id);
+            if (!IsMarcaInDatabase(patrimonioDtoIn.MarcaId))
+                return BadRequest(ResultMessageHelper.MarcaNotFoundMessage(patrimonioDtoIn.MarcaId));
 
-            if (patrimonioInDb == null)
+           if (!IsPatrimonioInDatabase(id, out Patrimonio patrimonioInDb))
                 return NotFound();
 
             Mapper.Map(patrimonioDtoIn, patrimonioInDb);
@@ -87,18 +96,37 @@ namespace PatrimonioManager.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         // DELETE api/Patrimonio/{id}
         public IHttpActionResult DeletePatrimonio(int id)
         {
-            var patrimonioInDb = _context.Patrimonios.SingleOrDefault(p => p.Id == id);
-
-            if (patrimonioInDb == null)
+           if (!IsPatrimonioInDatabase(id, out Patrimonio patrimonioInDb))                
                 return NotFound();
 
             _context.Patrimonios.Remove(patrimonioInDb);
             _context.SaveChanges();
 
             return Ok();
+        }
+
+        public bool IsMarcaInDatabase(int id)
+        {
+            var queryMarcaInDb = _context.Marcas.SingleOrDefault(m => m.Id == id);
+
+            if (queryMarcaInDb != null)
+                return false;
+
+            return true;
+        }
+
+        public bool IsPatrimonioInDatabase(int id, out Patrimonio patrimonioInDb)
+        {
+            patrimonioInDb = _context.Patrimonios.SingleOrDefault(p => p.Id == id);
+
+            if (patrimonioInDb == null)
+                return false;
+
+            return true;
         }
     }
 }
