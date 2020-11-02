@@ -53,6 +53,11 @@ namespace PatrimonioManager.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
+            var queryMarcasInDb = _context.Marcas.Where(m => m.Nome.Contains(marcaDto.Nome));
+
+            if (queryMarcasInDb.Count() > 0)
+                return BadRequest($"Marca {marcaDto.Nome} já existe no banco de dados.");
+
             var marca = Mapper.Map<MarcaDto, Marca>(marcaDto);
 
             _context.Marcas.Add(marca);
