@@ -6,24 +6,12 @@ using System.Web;
 
 namespace PatrimonioManager.Dtos
 {
-    public class PatrimonioDto
+    public class MarcaDtoIn
     {
         public int Id { get; set; }
 
         [Required]
         [StringLength(255)]
         public string Nome { get; set; }
-
-        [Required]
-        [StringLength(500)]
-        public string Descricao { get; set; }
-
-        [Required]
-        public int NumeroDoTombo { get; set; }
-
-        public MarcaDto Marca { get; set; }
-
-        [Required]
-        public int MarcaId { get; set; }
     }
 }

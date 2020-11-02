@@ -6,7 +6,7 @@ using System.Web;
 
 namespace PatrimonioManager.Dtos
 {
-    public class MarcaDto
+    public class MarcaDtoOut
     {
         public int Id { get; set; }
 

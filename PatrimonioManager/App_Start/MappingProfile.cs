@@ -12,13 +12,13 @@ namespace PatrimonioManager.App_Start
     {
         public MappingProfile()
         {
-            // Domain para Dto
-            Mapper.CreateMap<Marca, MarcaDto>();
-            Mapper.CreateMap<Patrimonio, PatrimonioDto>();
+            // Domain para DtoOut
+            Mapper.CreateMap<Marca, MarcaDtoOut>();
+            Mapper.CreateMap<Patrimonio, PatrimonioDtoOut>();
 
-            // Dto para Domain
-            Mapper.CreateMap<MarcaDto, Marca>().ForMember(m => m.Id, opt => opt.Ignore());
-            Mapper.CreateMap<PatrimonioDto, Patrimonio>().ForMember(p => p.Id, opt => opt.Ignore());
+            // DtoIn para Domain
+            Mapper.CreateMap<MarcaDtoIn, Marca>();
+            Mapper.CreateMap<PatrimonioDtoIn, Patrimonio>();
         }
     }
 }

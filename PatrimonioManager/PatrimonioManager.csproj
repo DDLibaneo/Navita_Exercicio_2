@@ -214,8 +214,10 @@
     <Compile Include="Controllers\MarcaController.cs" />
     <Compile Include="Controllers\PatrimonioController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="Dtos\MarcaDto.cs" />
-    <Compile Include="Dtos\PatrimonioDto.cs" />
+    <Compile Include="Dtos\MarcaDtoIn.cs" />
+    <Compile Include="Dtos\MarcaDtoOut.cs" />
+    <Compile Include="Dtos\PatrimonioDtoIn.cs" />
+    <Compile Include="Dtos\PatrimonioDtoOut.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

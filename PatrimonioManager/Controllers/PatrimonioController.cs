@@ -30,7 +30,7 @@ namespace PatrimonioManager.Controllers
                 patrimoniosQuery = patrimoniosQuery.Where(p => p.Nome.Contains(query));
 
             var patrimoniosDtos = patrimoniosQuery.ToList()
-                .Select(Mapper.Map<Patrimonio, PatrimonioDto>);
+                .Select(Mapper.Map<Patrimonio, PatrimonioDtoOut>);
 
             return Ok(patrimoniosDtos);
         }
@@ -43,31 +43,31 @@ namespace PatrimonioManager.Controllers
             if (patrimonio == null)
                 return NotFound();
 
-            var patrimonioDto = Mapper.Map<Patrimonio, PatrimonioDto>(patrimonio);
+            var patrimonioDto = Mapper.Map<Patrimonio, PatrimonioDtoOut>(patrimonio);
 
             return Ok(patrimonioDto);
         }
 
         [HttpPost]
         // POST api/Patrimonio
-        public IHttpActionResult CreatePatrimonio(PatrimonioDto patrimonioDto)
+        public IHttpActionResult CreatePatrimonio(PatrimonioDtoIn patrimonioDtoIn)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var patrimonio = Mapper.Map<PatrimonioDto, Patrimonio>(patrimonioDto);
+            var patrimonio = Mapper.Map<PatrimonioDtoIn, Patrimonio>(patrimonioDtoIn);
 
             _context.Patrimonios.Add(patrimonio);
             _context.SaveChanges();
 
-            patrimonioDto.Id = patrimonio.Id;
-
-            return Ok(patrimonioDto);
+            var patrimonioDtoOut = Mapper.Map<Patrimonio, PatrimonioDtoOut>(patrimonio);
+            
+            return Ok(patrimonioDtoOut);
         }
 
         [HttpPut]
         // PUT api/Patrimonio/{id}
-        public IHttpActionResult UpdatePatrimonio(int id, PatrimonioDto patrimonioDto)
+        public IHttpActionResult UpdatePatrimonio(int id, PatrimonioDtoIn patrimonioDtoIn)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -77,11 +77,13 @@ namespace PatrimonioManager.Controllers
             if (patrimonioInDb == null)
                 return NotFound();
 
-            Mapper.Map(patrimonioDto, patrimonioInDb);
+            Mapper.Map(patrimonioDtoIn, patrimonioInDb);
 
             _context.SaveChanges();
 
-            return Ok();
+            var patrimonioDtoOut = Mapper.Map<Patrimonio, PatrimonioDtoOut>(patrimonioInDb);
+
+            return Ok(patrimonioDtoOut);
         }
 
         [HttpDelete]

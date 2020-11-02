@@ -28,7 +28,7 @@ namespace PatrimonioManager.Controllers
                 marcasQuery = marcasQuery.Where(m => m.Nome.Contains(query));
 
             var marcasDtos = marcasQuery.ToList()
-                .Select(Mapper.Map<Marca, MarcaDto>);
+                .Select(Mapper.Map<Marca, MarcaDtoOut>);
 
             return Ok(marcasDtos);
         }
@@ -41,36 +41,36 @@ namespace PatrimonioManager.Controllers
             if (marca == null)
                 return NotFound();
 
-            var marcaDto = Mapper.Map<Marca, MarcaDto>(marca);
+            var marcaDto = Mapper.Map<Marca, MarcaDtoOut>(marca);
 
             return Ok(marcaDto);
         }
 
         // POST /api/marca
         [HttpPost]
-        public IHttpActionResult CreateMarca(MarcaDto marcaDto)
+        public IHttpActionResult CreateMarca(MarcaDtoIn marcaDtoIn)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var queryMarcasInDb = _context.Marcas.Where(m => m.Nome.Contains(marcaDto.Nome));
+            var queryMarcasInDb = _context.Marcas.Where(m => m.Nome.Contains(marcaDtoIn.Nome));
 
             if (queryMarcasInDb.Count() > 0)
-                return BadRequest($"Marca {marcaDto.Nome} já existe no banco de dados.");
+                return BadRequest($"Marca {marcaDtoIn.Nome} já existe no banco de dados.");
 
-            var marca = Mapper.Map<MarcaDto, Marca>(marcaDto);
+            var marca = Mapper.Map<MarcaDtoIn, Marca>(marcaDtoIn);
 
             _context.Marcas.Add(marca);
             _context.SaveChanges();
 
-            marcaDto.Id = marca.Id;
+            var marcaDtoOut = Mapper.Map<Marca, MarcaDtoOut>(marca);
 
-            return Ok(marcaDto);
+            return Ok(marcaDtoOut);
         }
 
         // PUT /api/marca/{id}
         [HttpPut]
-        public IHttpActionResult UpdateMarca(int id, MarcaDto marcaDto)
+        public IHttpActionResult UpdateMarca(int id, MarcaDtoIn marcaDtoIn)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -80,11 +80,13 @@ namespace PatrimonioManager.Controllers
             if (marcaInDb == null)
                 return NotFound();
 
-            Mapper.Map(marcaDto, marcaInDb);
+            Mapper.Map(marcaDtoIn, marcaInDb);
 
             _context.SaveChanges();
 
-            return Ok();
+            var marcaDtoOut = Mapper.Map<Marca, MarcaDtoOut>(marcaInDb);
+
+            return Ok(marcaDtoOut);
         }
 
         // DELETE /api/marca/{id}
