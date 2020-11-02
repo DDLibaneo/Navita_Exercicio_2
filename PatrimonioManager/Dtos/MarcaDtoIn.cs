@@ -8,8 +8,6 @@ namespace PatrimonioManager.Dtos
 {
     public class MarcaDtoIn
     {
-        public int Id { get; set; }
-
         [Required]
         [StringLength(255)]
         public string Nome { get; set; }
