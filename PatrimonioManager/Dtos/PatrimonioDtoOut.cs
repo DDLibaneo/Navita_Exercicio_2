@@ -18,9 +18,6 @@ namespace PatrimonioManager.Dtos
         [StringLength(500)]
         public string Descricao { get; set; }
 
-        [Required]
-        public int NumeroDoTombo { get; set; }
-
         public MarcaDtoOut Marca { get; set; }
 
         [Required]

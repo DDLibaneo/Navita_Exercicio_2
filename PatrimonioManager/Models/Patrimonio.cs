@@ -19,10 +19,6 @@ namespace PatrimonioManager.Models
         [StringLength(500)]
         public string Descricao { get; set; }
 
-        [Required]
-        [Index(IsUnique = true)]
-        public int NumeroDoTombo { get; set; }
-
         public Marca Marca { get; set; }
 
         [Required]

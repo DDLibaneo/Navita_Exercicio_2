@@ -24,7 +24,7 @@ namespace PatrimonioManager.Controllers
         {
             var marcasQuery = (IEnumerable<Marca>)_context.Marcas;
 
-            if (!String.IsNullOrWhiteSpace(query))
+            if (!string.IsNullOrWhiteSpace(query))
                 marcasQuery = marcasQuery.Where(m => m.Nome.Contains(query));
 
             var marcasDtos = marcasQuery.ToList()
