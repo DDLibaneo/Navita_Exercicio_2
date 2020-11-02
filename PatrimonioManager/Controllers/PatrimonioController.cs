@@ -113,7 +113,7 @@ namespace PatrimonioManager.Controllers
         {
             var queryMarcaInDb = _context.Marcas.SingleOrDefault(m => m.Id == id);
 
-            if (queryMarcaInDb != null)
+            if (queryMarcaInDb == null)
                 return false;
 
             return true;
